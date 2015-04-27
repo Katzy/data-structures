@@ -1,12 +1,5 @@
 require_relative "tree"
 
-class Tree
-
-  def empty?
-    self.value.nil?
-  end
-end
-
 class Trie
   attr_reader :root
 
