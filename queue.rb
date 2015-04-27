@@ -10,15 +10,21 @@ class Queue
     @queue = LinkedList.new
   end
 
+  class DimensionError < StandardError;end
+
   # Places +item+ at the back of the queue
   def enqueue(item)
-    @queue.push(item)
+      @queue.append(item)
   end
 
   # Removes the item at the front of the queue and returns it
   # Raises an error if the queue is empty
   def dequeue
-    @queue.shift
+    if @queue.length < 1
+      raise DimensionError, "The Queue is already empty.  Trying to squeeze water from a rock?"
+    else
+      @queue.shift
+    end
   end
 
   # Return the item at the front of the queue without dequeing it
@@ -28,7 +34,7 @@ class Queue
 
   # Return true if the queue is empty and false otherwise
   def empty?
-    @queue.head.value.nil?
+    @queue.empty?
   end
 
   # Return the number of items on the stack

@@ -2,17 +2,23 @@ class LinkedList
   # By implementing LinkedList#each, we can include Enumerable
   include Enumerable
 
+  class DimensionError < StandardError;end
+
   attr_reader :head, :tail, :length
 
   def initialize
     @head = LinkedListNode.new(nil)
-    #@tail = LinkedListNode.new(nil)
+    # @tail = nil
     @length = 0
   end
 
-
-  def push(value)
-    @head = @head.insert_after(value)
+  def append(value)
+    if self.empty?
+      @head = @head.insert_before(value)
+      @tail = @head
+    else
+      @tail = @tail.insert_after(value)
+    end
     @length += 1
     self
   end
@@ -74,20 +80,14 @@ class LinkedListNode
   # O(1) time
   # Insert +value+ after this LinkedListNode and return new LinkedListNode
   def insert_after(value)
-    if self.value.nil?
-      self.value = LinkedListNode(value)
-    else
-      current = self
-      node = LinkedListNode(value)
+    node = LinkedListNode(value)
 
-      while current.next != nil
-        current = current.next
-      end
-      current.next = node
+    node.next = self.next if self.next
 
+    self.next = node
 
-      self
-    end
+    node
+
   end
 
   # O(1) time

@@ -1,5 +1,7 @@
 require_relative "linked_list"
 
+require 'pp'
+
 def Tree(value)
   case value
   when Tree
@@ -25,5 +27,14 @@ class Tree
   end
 
   def each(&block)
+    node = self.children
+    until node.empty?
+      block.call(node.head.value)
+      node = node.children
+    end
+    self
+
   end
 end
+
+
