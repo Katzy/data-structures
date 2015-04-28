@@ -3,12 +3,6 @@ require_relative "tree"
 class Trie
   attr_reader :root
 
-  def children
-    self.root.children || self.children
-  end
-
-  attr_accessor :prefix
-
   def initialize
     @root = Tree.new(nil)
     @prefix = []
