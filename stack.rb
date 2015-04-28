@@ -4,38 +4,42 @@ require_relative 'linked_list'
 
 class Stack
   class UnderflowError < StandardError; end
+
+  attr_reader :list
+
   def initialize
-    @stack = LinkedList.new
+    @list = LinkedList.new
   end
 
   # Places +item+ on the top of the stack
   # O(1) time
   def push(item)
-    @stack.unshift(item)
+    @list.unshift(item)
   end
 
   # Removes the item on the top of the stack and returns it.
   # Raises an error if the stack is empty (called a "stack underflow")
   # O(1) time
+
   def pop
-    @stack.shift
+    @list.shift
   end
 
   # Return the item on the top of the stack without removing it
   # O(1) time
   def peek
-    @stack.head
+    @list.head
   end
 
   # Return true if the stack is empty and false otherwise
   # O(1) time
   def empty?
-    @stack.head.value.nil?
+    @list.head.value.nil?
   end
 
   # Return the number of items on the stack
   # O(1) time
   def size
-    @stack.length
+    @list.length
   end
 end

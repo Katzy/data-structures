@@ -1,63 +1,59 @@
-require_relative "linked_list"
-
-# Implement a "min-max stack" - a stack that has contant-time
-# "maximum" _and_ "minimum" operations.
+require_relative "min_stack"
+require_relative "max_stack"
 
 
-
-class MinMaxStack
-
-  class DimensionError < StandardError;end
+class MinMaxStack < Stack
 
   attr_accessor :items
 
   def initialize
-    @list = LinkedList.new
-    @items = []
+    @stak = Stack.new
+    @mini_stack = MinStack.new
+    @maxx_stack = MaxStack.new
   end
 
   # Places +item+ on the top of the stack
   def push(item)
-    @list.unshift(item)
-    @items.push(item)
-
-    self
+    @mini_stack.push(item)
+    @maxx_stack.push(item)
+    @stak.push(item)
   end
 
   # Removes the item on the top of the stack and returns it.
   # Raises an error if the stack is empty (called a "stack underflow")
   def pop
     if self.empty?
-      raise DimensionError, "The stack is empty!"
+      raise UnderflowError, "The stack is empty!"
     else
-      @items = @items - [@list.head.value]
-      @list.shift
+      @mini_stack.pop
+      @maxx_stack.pop
+      @stak.pop
     end
   end
 
   # Return the item on the top of the stack without removing it
   def peek
-    @list.head.value
+    @stak.peek.value
   end
 
   # Return true if the stack is empty and false otherwise
   def empty?
-    @list.empty?
+    @stak.empty?
   end
 
   # Return the number of items on the stack
   def size
-    @list.length
+    @stak.size
   end
 
   # Returns the smallest item on the stack
   def min
-    @items.min
+    @mini_stack.min
   end
 
   # Returns the largest item on the stack
   # O(1) time
   def max
-    @items.max
+    @maxx_stack.max
   end
 end
